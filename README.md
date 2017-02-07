@@ -5,26 +5,26 @@
 ## Build Setup（生产环境）
 
 ``` bash
-//安装依赖
+# 安装依赖
 npm install  
 
-//或者使用yarn
+# 或者使用yarn
 yarn install
 
-//webpack打包
+# webpack打包
 npm run build
 
-//启动服务
+# 启动服务
 npm start
 ```
 
 ## Devlopment Setup（开发环境）
 
 ```bash
-//安装依赖
+# 安装依赖
 npm install
 
-//启动服务
+# 启动服务
 npm run dev
 ```
 ## 目录文件 
