@@ -15,7 +15,7 @@ export default {
 
 }
 </script>
-<style src="~assets/css/index.css"></style>
+<style src="assets/css/index.css"></style>
 <style lang="less" scoped>
   .ga {
     color: #666;

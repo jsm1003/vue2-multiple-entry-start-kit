@@ -1,14 +1,14 @@
-const webpack = require('webpack')
-const HTMLPlugin = require('html-webpack-plugin')
-const entries = require('./entries')
+ const webpack = require('webpack')
+ const HTMLPlugin = require('html-webpack-plugin')
+ const entries = require('./entries')
 
 var plugins = [
     new webpack.optimize.CommonsChunkPlugin({
-        names: ["vendor"]
+      names: ["vendor"]
     })
 ]
 
-Object.keys(entries).forEach(function (entry) {
+Object.keys(entries).forEach(function(entry) {
     plugins.push(
         new HTMLPlugin({
             chunks: ['vendor', entry],
@@ -20,15 +20,11 @@ Object.keys(entries).forEach(function (entry) {
 })
 
 module.exports = {
-    module: {
-        rules: [      {
+        module:{
+        rules:[{
         test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
-        loader: 'url-loader',
-        options: {
-          name: '[name].[hash:7].[ext]'
-        }
+        loader: 'url-loader'
       }]
     },
-    plugins: plugins,
-    
+    plugins: plugins
 }

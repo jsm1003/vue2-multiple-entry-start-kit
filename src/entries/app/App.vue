@@ -13,8 +13,8 @@ export default {
   }
 }
 </script>
-<style src="~assets/css/index.css"></style>
 <style>
+@import "~assets/css/index.css";
   .ga {
     color: #666;
   }

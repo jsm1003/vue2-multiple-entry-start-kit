@@ -3,9 +3,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 exports.cssLoaders = function (options) {
     options = options || {}
-    // 使用插件中提取文本字符串, 生成loader
+    // generate loader string to be used with extract text plugin
     function generateLoaders(loaders) {
-        loaders = ['css', 'postcss'].concat(loaders)
         var sourceLoader = loaders.map(function (loader) {
             var extraParamChar
             if (/\?/.test(loader)) {
@@ -19,8 +18,8 @@ exports.cssLoaders = function (options) {
                 ? extraParamChar + 'sourceMap'
                 : '')
         }).join('!')
-
-        // 在生产模式下, 指定提取 CSS
+        // Extract CSS when that option is specified
+        // (which is the case during production build)
         if (options.extract) {
             return ExtractTextPlugin.extract({fallbackLoader: 'vue-style-loader', loader: sourceLoader})
         } else {
@@ -30,17 +29,17 @@ exports.cssLoaders = function (options) {
 
     // http://vuejs.github.io/vue-loader/en/configurations/extract-css.html
     return {
-        css: generateLoaders([]),
-        postcss: generateLoaders([]),
-        less: generateLoaders(['less',]),
-        sass: generateLoaders(['sass?indentedSyntax',]),
-        scss: generateLoaders(['sass',]),
-        stylus: generateLoaders(['stylus',]),
-        styl: generateLoaders(['stylus',]),
+       css: generateLoaders(['css']),
+       postcss: generateLoaders(['css']),
+       less: generateLoaders(['css', 'less',]),
+       sass: generateLoaders(['css', 'sass?indentedSyntax',]),
+       scss: generateLoaders(['css', 'sass',]),
+       stylus: generateLoaders(['css', 'stylus',]),
+       styl: generateLoaders(['css', 'stylus',]),
     }
 }
 
-// 生成独立的样式文件加载器 (在 .vue 文件之外)
+// Generate loaders for standalone style files (outside of .vue)
 exports.styleLoaders = function (options) {
     var output = []
     var loaders = exports.cssLoaders(options)

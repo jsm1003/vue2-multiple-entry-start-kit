@@ -5,6 +5,10 @@ const clientConfig = require('./webpack.client.config')
 const serverConfig = require('./webpack.server.config')
 
 module.exports = function setupDevServer (app, opts) {
+  // modify client config to work with hot middleware
+  // clientConfig.entry.app = ['webpack-hot-middleware/client', clientConfig.entry.app]
+  // clientConfig.entry.admin = ['webpack-hot-middleware/client', clientConfig.entry.admin]
+  // clientConfig.entry.login = ['webpack-hot-middleware/client', clientConfig.entry.login]
   Object.keys(clientConfig.entry).forEach(function(name) {
     clientConfig.entry[name] = ['webpack-hot-middleware/client'].concat(clientConfig.entry[name])
 })
@@ -13,7 +17,7 @@ module.exports = function setupDevServer (app, opts) {
   clientConfig.output.filename = '[name].js'
   clientConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoErrorsPlugin()
   )
 
   // dev middleware
@@ -30,6 +34,10 @@ module.exports = function setupDevServer (app, opts) {
     const fs = devMiddleware.fileSystem
 
     //在这里判断文件是否在内存中
+    // Object.keys(clientConfig.entry).forEach(function(name){
+    //   console.log(name)
+ 
+    // })
     const appPath = path.join(clientConfig.output.path, 'app.html')//client ssr 页面
     if (fs.existsSync(appPath)) {
       const index = fs.readFileSync(appPath, 'utf-8')
